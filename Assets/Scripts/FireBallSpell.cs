@@ -16,10 +16,12 @@ public class FireBallSpell : MonoBehaviour
     private object hit;
     public int DamageToEnemy;
 
+    public int manaMag = 15;
+    public int manaShot = 0;
     public int mana = 15;
     public Text manaD;
 
-    public int maxMana = 300;
+    public int maxMana = 10;
     public Text maxManaD;
 
     // Start is called before the first frame update
@@ -39,6 +41,7 @@ public class FireBallSpell : MonoBehaviour
             if (mana > 0)
             {
                 mana = mana - 1;
+                manaShot++;
                 Fire();
                 //audioFire.Play(0);
                 //StartCoroutine(Destroy());
@@ -91,11 +94,6 @@ public class FireBallSpell : MonoBehaviour
         ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, launchVelocity, 0));
     }
 
-    public void Reload()
-    {
-        //StartCoroutine(RReload());
-    }
-
     //Adding mana to max mana
     public void manaAdd()
     {
@@ -106,10 +104,15 @@ public class FireBallSpell : MonoBehaviour
     {
         //manaD.text = mana.ToString("Reloading");
         yield return new WaitForSeconds(2);
-        if (maxMana >= 15 && mana == 0)
+        if (maxMana >= manaMag && mana <= 0)
         {
-            maxMana = maxMana - 15;
-            mana = mana + 15;
+            maxMana = maxMana - manaMag;
+            mana = mana + manaMag;
+        }
+        else if (maxMana <= manaMag && mana <= 0)
+        {
+            mana = maxMana;
+            maxMana = 0;
         }
     }
     IEnumerator ManualReload()
@@ -117,90 +120,12 @@ public class FireBallSpell : MonoBehaviour
         reloadingText.SetActive(true);
         yield return new WaitForSeconds(2);
         // Reload if Mana is 1
-        if (maxMana >= 14 && mana == 1)
+        if (maxMana >= 14 && mana <= manaMag)
         {
-            maxMana = maxMana - 14;
-            mana = mana + 14;
+            maxMana = maxMana - manaShot;
+            mana = manaMag;
+            manaShot = 0;
         }
-        // Reload if Mana is 2
-        if (maxMana >= 13 && mana == 2)
-        {
-            maxMana = maxMana - 13;
-            mana = mana + 13;
-        }
-        // Reload if Mana is 3
-        if (maxMana >= 14 && mana == 3)
-        {
-            maxMana = maxMana - 12;
-            mana = mana + 12;
-        }
-        // Reload if Mana is 4
-        if (maxMana >= 11 && mana == 4)
-        {
-            maxMana = maxMana - 11;
-            mana = mana + 11;
-        }
-        // Reload if Mana is 5
-        if (maxMana >= 10 && mana == 5)
-        {
-            maxMana = maxMana - 10;
-            mana = mana + 10;
-        }
-        // Reload if Mana is 6
-        if (maxMana >= 9 && mana == 6)
-        {
-            maxMana = maxMana - 9;
-            mana = mana + 9;
-        }
-        // Reload if Mana is 7
-        if (maxMana >= 8 && mana == 7)
-        {
-            maxMana = maxMana - 8;
-            mana = mana + 8;
-        }
-        // Reload if Mana is 8
-        if (maxMana >= 7 && mana == 8)
-        {
-            maxMana = maxMana - 7;
-            mana = mana + 7;
-        }
-        // Reload if Mana is 9
-        if (maxMana >= 6 && mana == 9)
-        {
-            maxMana = maxMana - 6;
-            mana = mana + 6;
-        }
-        // Reload if Mana is 10
-        if (maxMana >= 5 && mana == 10)
-        {
-            maxMana = maxMana - 5;
-            mana = mana + 5;
-        }
-        // Reload if Mana is 11
-        if (maxMana >= 4 && mana == 11)
-        {
-            maxMana = maxMana - 4;
-            mana = mana + 4;
-        }
-        // Reload if Mana is 12
-        if (maxMana >= 3 && mana == 12)
-        {
-            maxMana = maxMana - 3;
-            mana = mana + 3;
-        }
-        // Reload if Mana is 13
-        if (maxMana >= 2 && mana == 13)
-        {
-            maxMana = maxMana - 2;
-            mana = mana + 2;
-        }
-        // Reload if Mana is 14
-        if (maxMana >= 1 && mana == 14)
-        {
-            maxMana = maxMana - 1;
-            mana = mana + 1;
-        }
-        // Removes Reloaded Txt from screen.
     }
     IEnumerator Reloaded()
     {

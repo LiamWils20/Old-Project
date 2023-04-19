@@ -29,7 +29,7 @@ public class BossEnemyShooter : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<Player>().Damage(DamageToPlayer);
+            other.GetComponent<Player>().Damage();
         }
     }
 

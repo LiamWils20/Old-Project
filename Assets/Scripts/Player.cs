@@ -134,13 +134,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Damage(int dmg)
+    public bool Damage()
     {
         health = health - 10;
         if (health <= 0)
         {
             Destroy(player);
         }
+        return true;
     }
 
     public void Respawn()

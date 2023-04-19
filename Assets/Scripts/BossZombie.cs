@@ -71,7 +71,7 @@ public class BossZombie : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         {
-            player.GetComponent<Player>().Damage(DamageToPlayer);
+            player.GetComponent<Player>().Damage();
         }
         StopCoroutine(DealDamage());
     }
